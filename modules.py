@@ -4,8 +4,7 @@ from torch import nn
 from torch.nn import functional as F
 
 from torch.nn import Conv1d
-from torch.nn.utils.parametrizations import weight_norm
-from torch.nn.utils import remove_weight_norm
+from torch.nn.utils import weight_norm, remove_weight_norm
 
 from . import commons
 from .commons import init_weights, get_padding
@@ -175,11 +174,11 @@ class WN(torch.nn.Module):
 
   def remove_weight_norm(self):
     if self.gin_channels != 0:
-      remove_weight_norm(self.cond_layer)
+      remove_weight_norm(self.cond_layer, 'weight')
     for l in self.in_layers:
-      remove_weight_norm(l)
+      remove_weight_norm(l, 'weight')
     for l in self.res_skip_layers:
-      remove_weight_norm(l)
+      remove_weight_norm(l, 'weight')
 
 
 class ResBlock1(torch.nn.Module):
@@ -222,9 +221,9 @@ class ResBlock1(torch.nn.Module):
 
     def remove_weight_norm(self):
         for l in self.convs1:
-            remove_weight_norm(l)
+            remove_weight_norm(l, 'weight')
         for l in self.convs2:
-            remove_weight_norm(l)
+            remove_weight_norm(l, 'weight')
 
 
 class ResBlock2(torch.nn.Module):
@@ -251,7 +250,7 @@ class ResBlock2(torch.nn.Module):
 
     def remove_weight_norm(self):
         for l in self.convs:
-            remove_weight_norm(l)
+            remove_weight_norm(l, 'weight')
 
 
 class Log(nn.Module):

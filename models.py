@@ -8,7 +8,7 @@ from . import modules
 from . import attentions
 
 from torch.nn import Conv1d, ConvTranspose1d
-from torch.nn.utils.parametrizations import weight_norm
+from torch.nn.utils import weight_norm
 from .commons import init_weights
 
 
