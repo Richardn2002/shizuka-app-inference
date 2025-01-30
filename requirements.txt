@@ -1,5 +1,5 @@
 librosa
-numpy==1.23.5
+numpy==1.26.4
 scipy
 torch
 unidecode
@@ -15,4 +15,3 @@ ko_pron
 indic_transliteration
 num_thai
 opencc
-audonnx
